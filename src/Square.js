@@ -3,7 +3,7 @@ import "./index.css";
 
 function Square(props) {
   return (
-    <button className="square">
+    <button className="square" id={"square" + props.id}>
       {props.value}
     </button>
   );

@@ -32,6 +32,8 @@ class Game extends React.Component {
       return;
     }
     squares[i] = this.state.redIsNext ? "red" : "green";
+    document.getElementById("square" + i).style.background = this.state.redIsNext ? "red" : "green";
+    document.getElementById("square" + i).style.color = this.state.redIsNext ? "red" : "green";
     this.setState({
       history: history.concat([
         {
@@ -44,10 +46,21 @@ class Game extends React.Component {
   }
 
   jumpTo(step) {
+    const history = this.state.history.slice(0, this.state.stepNumber + 1);
+    const length = this.state.history.length;
+    history.splice(step + 1, length - step - 1);
     this.setState({
+      history: history,
       stepNumber: step,
       redIsNext: step % 2 === 0,
     });
+    const current = history[history.length - 1];
+    const squares = current.squares.slice();
+    for (var i = 0; i < squares.length; i++) {
+      if (!squares[i]) {
+        document.getElementById("square" + i).style.background = "white";
+      }
+    }
   }
 
   render() {
